@@ -38,8 +38,8 @@ The extention will:
 - Then, move to the next class on the playlist, using the next video url, created at the beginning.
 
 #### 4 - To do
-- [] Find a way to encode the final .mp4 file to a "true" .mp4 format (at the moment it's just a bunch of .ts files concatenated, thats why you need to download VLC to play them);
-- [] The "front-end" (popup, options, user messages and errors);
-- [] Names and icons;
+- [ ] Find a way to encode the final .mp4 file to a "true" .mp4 format (at the moment it's just a bunch of .ts files concatenated, thats why you need to download VLC to play them);
+- [ ] The "front-end" (popup, options, user messages and errors);
+- [ ] Names and icons;
 
 #### I am not responsible for the misuse of this project. I do not encourage or support the use of this project for the purposes of piracy or unauthorized distribution of any hotmart content. This project was made in order to study some concepts of javascript and web programming.
