@@ -13,7 +13,7 @@
 
 1.4 - Find the HCD folder.
 
-**You need to install [VLC](https://www.videolan.org/) or any player that supports MPEG-TS encoding, to be able to play the downloaded classes (better explanation at the "to do" section).**
+**You need to install [VLC](https://www.videolan.org/) or any player that supports MPEG-TS encoding, to be able to play the downloaded videos (better explanation at the "to do" section).**
 
 #### 2 - How to use
 2.1 - Go to the first class of your course (you need to be logged, and own it, ofc)
