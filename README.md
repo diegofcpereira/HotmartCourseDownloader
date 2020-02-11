@@ -5,15 +5,15 @@
 ### I am not responsible for the misuse of this project. I do not encourage or support the use of this project for the purposes of piracy or unauthorized distribution of any hotmart content. This project was made in order to study some concepts of javascript and web programming.
 ### It uses the decrypt class from [hls.js](https://github.com/video-dev/hls.js), to decrypt AES-128 crypted MPEG-TS files.
 #### 1 - How to install
-1.1 - Type "chrome://extensions", on chrome's url field
+1.1 - Type "chrome://extensions", on chrome's url field;
 
-1.2 - Enter in Development Mode, by pressing the button on the top right
+1.2 - Enter in Development Mode, by pressing the button on the top right;
 
-1.3 - Press on the "load unpacked extension", on the top left
+1.3 - Press on the "load unpacked extension", on the top left;
 
-1.4 - Find the HCD folder
+1.4 - Find the HCD folder.
 
-**You need to install [VLC](https://www.videolan.org/) or any player that supports MPEG-TS encoding**
+**You need to install [VLC](https://www.videolan.org/) or any player that supports MPEG-TS encoding, to be able to play the downloaded classes (better explanation at the "to do" section).**
 
 #### 2 - How to use
 2.1 - Go to the first class of your course (you need to be logged, and own it, ofc)
