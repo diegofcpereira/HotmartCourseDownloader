@@ -1,7 +1,7 @@
 {
-    "name": "Getting Started Example",
+    "name": "Hotmart Course Downloader",
     "version": "1.0",
-    "description": "Build an Extension!",
+    "description": "A extension to single-click download all videos from a hotmart course!",
     "permissions": [
       "activeTab",
       "tabs",
@@ -12,7 +12,7 @@
     ],
     
     "browser_action": {
-      "default_title": "Test Extension"
+      "default_title": "HCD - Download!"
     },
     
     "background": {
