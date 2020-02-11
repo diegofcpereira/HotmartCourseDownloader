@@ -1,7 +1,8 @@
 # Hotmart Course Downloader
-## A Chrome extension to single-click download all videos from a Hotmart course.<p>
+## A Chrome extension to single-click download all videos from a Hotmart course.
 
 ### This project is still in development.
+### I am not responsible for the misuse of this project. I do not encourage or support the use of this project for the purposes of piracy or unauthorized distribution of any hotmart content. This project was made in order to study some concepts of javascript and web programming.
 ### It uses the decrypt class from [hls.js](https://github.com/video-dev/hls.js), to decrypt AES-128 crypted MPEG-TS files.
 #### 1 - How to install
 1.1 - Type "chrome://extensions", on chrome's url field
@@ -41,5 +42,3 @@ The extention will:
 - [ ] Find a way to encode the final .mp4 file to a "true" .mp4 format (at the moment it's just a bunch of .ts files concatenated, thats why you need to download VLC to play them);
 - [ ] The "front-end" (popup, options, user messages and errors);
 - [ ] Names and icons;
-
-#### I am not responsible for the misuse of this project. I do not encourage or support the use of this project for the purposes of piracy or unauthorized distribution of any hotmart content. This project was made in order to study some concepts of javascript and web programming.
