@@ -298,11 +298,11 @@ function doAgain(currentTab) {
                                         decrypt(segment, videoKey).then(function (decSeg) {
                                             if (!(i % 10)) { console.clear() }
 
-                                            finalBlob = new Blob([decSeg], { type: 'video/mp4' });
-                                            let url = URL.createObjectURL(finalBlob);
-                                            chrome.downloads.download({ url: url, filename: filename, saveAs: false });
+                                            //finalBlob = new Blob([decSeg], { type: 'video/mp4' });
+                                            //let url = URL.createObjectURL(finalBlob);
+                                            //chrome.downloads.download({ url: url, filename: filename, saveAs: false });
 
-                                            //finalBlob = new Blob([finalBlob, decSeg], { type: 'video/mp4' });
+                                            finalBlob = new Blob([finalBlob, decSeg], { type: 'video/mp4' });
                                             console.log(`${filename} - ${videoQuality}p\n${i + 1}/${segmentList.length} - ${(finalBlob.size / 1000000).toFixed(2)} MB`);
                                             if (i == segmentList.length - 1) {
                                                 // String(courseName).replace(/[\\\/\:\*\?\"\<\>\|]/g, " -");
