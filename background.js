@@ -182,7 +182,7 @@ function getVideoQualities(videoId) {
                         resolve(qualities[i]);
                     }
                 }
-                resolve(qualities[i]);
+                resolve(qualities[i-1]);
             }
         };
         httpReq.open("GET", `https://contentplayer.hotmart.com/video/${videoId}/hls/master.m3u8`, true);
@@ -268,7 +268,7 @@ function decrypt(segment, key) {
 }
 
 function doAgain(currentTab) {
-    console.log("Dando um tempinho...")
+    console.log("Waiting for the page to load...")
     setTimeout(function () {
         console.clear();
         getInfos(currentTab).then(function ([videoId, videoName, moduleName, courseName, nextVideo, currentCode, currentUrl, template]) {
@@ -277,7 +277,7 @@ function doAgain(currentTab) {
             //console.log(template)
             //console.log(nextVideo);
             getVideoQualities(videoId).then(function (videoQuality) {
-                //console.log(videoQualities);
+                //console.log(videoQuality);
                 getVideoPlaylist(videoId, videoQuality).then(function (videoPlaylist) {
                     //console.log(videoPlaylist);
                     getKey(videoId, videoQuality, videoPlaylist).then(function (videoKey) {
@@ -297,27 +297,20 @@ function doAgain(currentTab) {
                                     getSegment(segmentList[i]).then(function (segment) {
                                         decrypt(segment, videoKey).then(function (decSeg) {
                                             if (!(i % 10)) { console.clear() }
-
-                                            finalBlob = new Blob([decSeg], { type: 'video/mp4' });
-                                            let url = URL.createObjectURL(finalBlob);
-                                            chrome.downloads.download({ url: url, filename: filename, saveAs: false });
-
-                                            //finalBlob = new Blob([finalBlob, decSeg], { type: 'video/mp4' });
+                                            finalBlob = new Blob([finalBlob, decSeg], { type: 'video/mp4' });
                                             console.log(`${filename} - ${videoQuality}p\n${i + 1}/${segmentList.length} - ${(finalBlob.size / 1000000).toFixed(2)} MB`);
+                                            
                                             if (i == segmentList.length - 1) {
-                                                // String(courseName).replace(/[\\\/\:\*\?\"\<\>\|]/g, " -");
-                                                // String(moduleName).replace(/[\\\/\:\*\?\"\<\>\|]/g, " -");
-                                                // String(videoName).replace(/[\\\/\:\*\?\"\<\>\|]/g, " -");
-                                                // let filename = String(`${courseName}/${moduleName}/${videoName}.mp4`).replace(/(\s){2,}/g, " ")
-                                                //let url = URL.createObjectURL(finalBlob);
+                                                let url = URL.createObjectURL(finalBlob);
                                                 chrome.downloads.download({ url: url, filename: filename, saveAs: false });
                                                 console.clear();
                                                 console.log(filename);
                                                 console.log(url)
-                                                console.log("Baixado!")
+                                                console.log("Downloaded!")
+                                                
                                                 if (nextVideo != "End") {
                                                     chrome.tabs.update(currentTab, { url: nextVideo });
-                                                    console.log("Indo p próximo...");
+                                                    console.log("Going to the next one...");
 
                                                     videoId = undefined;
                                                     videoName = undefined;
@@ -360,7 +353,7 @@ function doAgain(currentTab) {
                                                     i = undefined;
                                                     p = undefined;
                                                     url = undefined;
-                                                    console.log("Fim do curso!");
+                                                    console.log("End of the course!");
                                                     return;
                                                 }   
                                             }
@@ -377,12 +370,12 @@ function doAgain(currentTab) {
 }
 
 let isRunning = false;
-console.log("Aplicação não está rodando")
+console.log("The extension is not running.")
 
 chrome.browserAction.onClicked.addListener(function (tab) {
     if (!isRunning) {
         console.clear();
-        console.log("Aplicação está rodando agora")
+        console.log("Extension is running now.")
         isRunning = true;
         let currentTab = tab.id;
         doAgain(currentTab);
