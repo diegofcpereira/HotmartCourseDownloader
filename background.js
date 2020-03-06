@@ -297,14 +297,7 @@ function doAgain(currentTab) {
                                     getSegment(segmentList[i]).then(function (segment) {
                                         decrypt(segment, videoKey).then(function (decSeg) {
                                             if (!(i % 10)) { console.clear() }
-<<<<<<< HEAD
-=======
 
-                                            //finalBlob = new Blob([decSeg], { type: 'video/mp4' });
-                                            //let url = URL.createObjectURL(finalBlob);
-                                            //chrome.downloads.download({ url: url, filename: filename, saveAs: false });
-
->>>>>>> f6f48f887125566d0f4fca9bc7b5a362b376ac7c
                                             finalBlob = new Blob([finalBlob, decSeg], { type: 'video/mp4' });
                                             console.log(`${filename} - ${videoQuality}p\n${i + 1}/${segmentList.length} - ${(finalBlob.size / 1000000).toFixed(2)} MB`);
                                             
