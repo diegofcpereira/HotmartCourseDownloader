@@ -1,7 +1,7 @@
 # Hotmart Course Downloader
 ## A Chrome extension to single-click download all videos from a Hotmart course.
 
-## It works only if the course uses the one of the native hotmart players. It's not supposed to work on 3rd party embedded players (like vimeo's).
+## It works only if the course uses one of the native hotmart players. It's not supposed to work on 3rd party embedded players (like vimeo's).
 
 ### This project is still in development.
 ### I am not responsible for the misuse of this project. I do not encourage or support the use of this project for the purposes of piracy or unauthorized distribution of any hotmart content. This project was made in order to study some concepts of javascript and web programming.
