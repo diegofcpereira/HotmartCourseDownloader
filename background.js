@@ -114,7 +114,7 @@ function getInfos(tabId) {
 
                 courseName = new Promise(function (resolve, reject) {
                     chrome.tabs.executeScript(tabId, {
-                        code: 'document.getElementsByClassName("logo btn--effect sidebar__logo")[0].children[0].alt;'
+                        code: 'document.getElementsByClassName("logo btn--effect ")[0].children[0].innerText;'
                     }, function (result) {
                         resolve(result);
                     })
@@ -274,7 +274,7 @@ function doAgain(currentTab) {
         getInfos(currentTab).then(function ([videoId, videoName, moduleName, courseName, nextVideo, currentCode, currentUrl, template]) {
             //console.log(courseName+"/"+moduleName+"/"+videoName);
             //console.log(videoId+" - "+currentUrl+" - "+currentCode)
-            //console.log(template)
+            console.log(template)
             //console.log(nextVideo);
             getVideoQualities(videoId).then(function (videoQuality) {
                 //console.log(videoQuality);
@@ -286,11 +286,12 @@ function doAgain(currentTab) {
                             //console.log(segmentList);
 
                             let finalBlob = new Blob([], { type: 'video/mp4' });
+
                             courseName = String(courseName).replace(/[\\\/\:\*\?\"\<\>\|]/g, " -");
                             moduleName = String(moduleName).replace(/[\\\/\:\*\?\"\<\>\|]/g, " -");
                             videoName = String(videoName).replace(/[\\\/\:\*\?\"\<\>\|]/g, " -");
-                            let filename = String(`${courseName}/${moduleName}/${videoName}.mp4`).replace(/(\s){2,}/g, " ")
 
+                            let filename = String(`${courseName}/${moduleName}/${videoName}.mp4`).replace(/(\s){2,}/g, " ")
 
                             for (let i = 0, p = Promise.resolve(); i < segmentList.length; i++) {
                                 p = p.then(() => (
