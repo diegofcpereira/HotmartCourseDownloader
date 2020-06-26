@@ -175,10 +175,10 @@ function getVideoQualities(videoId) {
         let httpReq = new XMLHttpRequest();
         httpReq.onreadystatechange = function () {
             if (httpReq.readyState == 4 && httpReq.status == 200) {
-                let qualities = getAllSubstrings(String(httpReq.responseText), '/', '\\.');
+                let qualities = httpReq.responseText.match(RegExp(`(.*).m3u8`, 'g')).map(function (i) { return i.replace('.m3u8', '').split('/')});
                 let i;
                 for(i = 0; i<qualities.length; i++) {
-                    if(Number(qualities[i]) >= 720) {
+                    if(Number(qualities[i][0]) >= 720) {
                         resolve(qualities[i]);
                     }
                 }
@@ -198,7 +198,7 @@ function getVideoPlaylist(videoId, videoQuality) {
                 resolve(String(httpReq.responseText));
             }
         };
-        httpReq.open("GET", `https://contentplayer.hotmart.com/video/${videoId}/hls/${videoQuality}/${videoQuality}.m3u8`)
+        httpReq.open("GET", `https://contentplayer.hotmart.com/video/${videoId}/hls/${videoQuality[0]}/${videoQuality[1]}.m3u8`)
         httpReq.send();
     })
 }
@@ -280,11 +280,10 @@ function doAgain(currentTab) {
                 //console.log(videoQuality);
                 getVideoPlaylist(videoId, videoQuality).then(function (videoPlaylist) {
                     //console.log(videoPlaylist);
-                    getKey(videoId, videoQuality, videoPlaylist).then(function (videoKey) {
+                    getKey(videoId, videoQuality[0], videoPlaylist).then(function (videoKey) {
                         //console.log(videoKey);
-                        getSegmentList(videoId, videoQuality, videoPlaylist).then(function (segmentList) {
+                        getSegmentList(videoId, videoQuality[0], videoPlaylist).then(function (segmentList) {
                             //console.log(segmentList);
-
                             let finalBlob = new Blob([], { type: 'video/mp4' });
 
                             courseName = String(courseName).replace(/[\\\/\:\*\?\"\<\>\|]/g, " -");
@@ -299,8 +298,8 @@ function doAgain(currentTab) {
                                         decrypt(segment, videoKey).then(function (decSeg) {
                                             if (!(i % 10)) { console.clear() }
                                             finalBlob = new Blob([finalBlob, decSeg], { type: 'video/mp4' });
-                                            console.log(`${filename} - ${videoQuality}p\n${i + 1}/${segmentList.length} - ${(finalBlob.size / 1000000).toFixed(2)} MB`);
-                                            
+                                            console.log(`${filename} - ${videoQuality[0]}p\n${i + 1}/${segmentList.length} - ${(finalBlob.size / 1000000).toFixed(2)} MB`);
+
                                             if (i == segmentList.length - 1) {
                                                 let url = URL.createObjectURL(finalBlob);
                                                 chrome.downloads.download({ url: url, filename: filename, saveAs: false });
@@ -308,7 +307,7 @@ function doAgain(currentTab) {
                                                 console.log(filename);
                                                 console.log(url)
                                                 console.log("Downloaded!")
-                                                
+
                                                 if (nextVideo != "End") {
                                                     chrome.tabs.update(currentTab, { url: nextVideo });
                                                     console.log("Going to the next one...");
@@ -356,7 +355,7 @@ function doAgain(currentTab) {
                                                     url = undefined;
                                                     console.log("End of the course!");
                                                     return;
-                                                }   
+                                                }
                                             }
                                         })
                                     })
